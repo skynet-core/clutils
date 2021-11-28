@@ -19,24 +19,30 @@
 #endif
 #endif
 
+#ifdef WIN32
+#define DllExport __declspec(dllexport)
+#else
+#define DllExport
+#endif
+
 #include <CL/opencl.hpp>
 
 #include <string>
 #include <tuple>
 #include <array>
 
-std::string get_build_log(const cl::BuildError &e);
+DllExport std::string get_build_log(const cl::BuildError &e);
 
-std::array<cl_uint, 8> hex_to_sha256(const std::string &string);
+DllExport std::array<cl_uint, 8> hex_to_sha256(const std::string &string);
 
-std::tuple<cl::NDRange, cl::NDRange, cl::NDRange> tuple_ranges_factory(const size_t max_dims);
+DllExport std::tuple<cl::NDRange, cl::NDRange, cl::NDRange> tuple_ranges_factory(const size_t max_dims);
 
-std::string read_file(const std::string &file_path);
+DllExport std::string read_file(const std::string &file_path);
 
-std::tuple<cl::NDRange, cl::NDRange, cl::NDRange> init_ranges(
+DllExport std::tuple<cl::NDRange, cl::NDRange, cl::NDRange> init_ranges(
     const size_t max_grp_size,
     const size_t multiple,
     const size_t max_dims = 3);
 
-std::vector<cl::Platform> get_platforms();
+DllExport std::vector<cl::Platform> get_platforms();
 #endif
