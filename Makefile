@@ -2,7 +2,7 @@ all: config build install
 
 .PHONY: config
 config:
-	cmake -B ./build -Dclutils_BUILD_TESTING=ON
+	cmake -B ./build -DCLUTILS_BUILD_TESTS:BOOL=ON
 
 .PHONY: build
 build:
