@@ -13,7 +13,5 @@ find_package(fmt CONFIG REQUIRED)
 find_package(Catch2 CONFIG REQUIRED)
 find_package(OpenCL REQUIRED)
 target_link_libraries(
-                      ${PROJECT_NAME}_test PRIVATE ${PROJECT_NAME}::${PROJECT_NAME} 
-                       OpenCL::OpenCL 
-                       Catch2::Catch2
-                       fmt::fmt-header-only)
+  ${PROJECT_NAME}_test PRIVATE ${PROJECT_NAME}::${PROJECT_NAME} OpenCL::OpenCL
+                               Catch2::Catch2 fmt::fmt-header-only)
