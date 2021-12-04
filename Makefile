@@ -1,3 +1,5 @@
+all: config build install
+
 .PHONY: config
 config:
 	cmake -B ./build -Dclutils_BUILD_TESTING=ON

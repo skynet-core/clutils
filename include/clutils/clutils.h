@@ -25,7 +25,7 @@
 #define DllExport
 #endif
 
-#include <CL/opencl.hpp>
+#include "CL/opencl.hpp"
 
 #include <string>
 #include <tuple>

@@ -5,12 +5,14 @@ set(CMAKE_TOOLCHAIN_FILE
     CACHE STRING "")
 message(STATUS ${CMAKE_TOOLCHAIN_FILE})
 
-project(clutils VERSION 0.1.0 LANGUAGES CXX)
+project(
+  clutils
+  VERSION 0.1.1
+  LANGUAGES CXX)
 include(GNUInstallDirs)
 include(CTest)
 
 file(GLOB ${PROJECT_NAME}_SOURCES src/*.cpp)
-file(GLOB ${PROJECT_NAME}_HEADERS include/${PROJECT_NAME}/*.h*)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_library(${PROJECT_NAME} "${${PROJECT_NAME}_SOURCES}")
@@ -20,10 +22,10 @@ target_include_directories(
   INTERFACE $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include>
             $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenCL::OpenCL fmt::fmt-header-only)
+target_link_libraries(${PROJECT_NAME} PRIVATE OpenCL::OpenCL
+                                              fmt::fmt-header-only)
 
-
-#dependencies 
+# dependencies
 find_package(OpenCL REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 
@@ -36,14 +38,15 @@ endif()
 option(${PROJECT_NAME}_INSTALL_LIBRARY
        "Enable installing of ${PROJECT_NAME} library into default locations"
        ${IS_TOPLEVEL_PROJECT})
-option(${PROJECT_NAME}_BUILD_TESTING "Build and run ${PROJECT_NAME} tests " ${IS_TOPLEVEL_PROJECT})
-option(${PROJECT_NAME}_BUILD_DOC "Generate ${PROJECT_NAME} documentation" ${IS_TOPLEVEL_PROJECT})
+option(${PROJECT_NAME}_BUILD_TESTING "Build and run ${PROJECT_NAME} tests "
+       ${IS_TOPLEVEL_PROJECT})
+option(${PROJECT_NAME}_BUILD_DOC "Generate ${PROJECT_NAME} documentation"
+       ${IS_TOPLEVEL_PROJECT})
 
 if(BUILD_TESTING AND ${PROJECT_NAME}_BUILD_TESTING)
   add_subdirectory(tests)
   add_test(NAME TestMain COMMAND ${PROJECT_NAME}_test)
 endif()
-
 
 if(${PROJECT_NAME}_INSTALL_LIBRARY)
   # locations are provided by GNUInstallDirs
@@ -75,7 +78,7 @@ if(${PROJECT_NAME}_INSTALL_LIBRARY)
                 "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
           DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
 
-  install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/include/CL
+  install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}
           DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif()
 
